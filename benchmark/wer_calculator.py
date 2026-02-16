@@ -6,7 +6,14 @@ WER (Word Error Rate) Calculator
 Requirements: pip install jiwer
 """
 
+import sys
+import io
 from jiwer import wer, process_words
+
+# Fix Windows console encoding for Polish characters
+if sys.platform == 'win32':
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
+    sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8', errors='replace')
 
 def normalize_text(text: str) -> str:
     """
